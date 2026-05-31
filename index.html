@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotofácil Premium - Fechamento Quentes e Frias</title>
+    <style>
+        /* Estilos Globais e Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #0d0d0d;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Tipografia e Cores */
+        .text-green { color: #00ff66; }
+        .text-gold { color: #ffcc00; }
+        .text-center { text-align: center; }
+        
+        /* Cabeçalho / Hero Section */
+        .hero {
+            background: linear-gradient(180deg, #1a0033 0%, #0d0d0d 100%);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            color: #cccccc;
+        }
+
+        /* Seção da Garantia */
+        .garantia-box {
+            background-color: #1a1a1a;
+            border: 2px solid #ffcc00;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 800px;
+            margin: -20px auto 40px auto;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+        .garantia-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+        }
+        .garantia-item {
+            display: flex;
+            align-items: center;
+            background: #262626;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #00ff66;
+            text-align: left;
+        }
+        .garantia-item span {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+
+        /* Seção de Prova Social (Carrossel) */
+        .prova-social {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .prova-social h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        
+        .carousel-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .carousel-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 15px;
+            padding-bottom: 20px;
+            /* Esconde a barra de rolagem */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+        .carousel-slide {
+            flex: 0 0 calc(33.333% - 10px);
+            scroll-snap-align: start;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+        }
+        @media (max-width: 768px) {
+            .carousel-slide {
+                flex: 0 0 calc(80% - 10px);
+            }
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Botões do Carrossel */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: 2px solid #ffcc00;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .prev-btn { left: -20px; }
+        .next-btn { right: -20px; }
+        .carousel-btn:hover { background: #ffcc00; color: #000; }
+
+        /* Botões de Ação (CTA) */
+        .cta-section {
+            padding: 40px 20px 80px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+        }
+        
+        .btn-teste {
+            background-color: transparent;
+            color: #00ff66;
+            border: 2px solid #00ff66;
+        }
+        .btn-teste:hover {
+            background-color: rgba(0, 255, 102, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-comprar {
+            background: linear-gradient(90deg, #ff9900, #ffcc00);
+            color: #000;
+            border: none;
+            animation: pulse 2s infinite;
+        }
+        .btn-comprar:hover {
+            filter: brightness(1.1);
+            transform: translateY(-3px);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 204, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 204, 0, 0); }
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #000;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>O Segredo Revelado: <span class="text-gold">Fechamento Lotofácil Premium</span></h1>
+        <p>Pare de depender apenas da sorte. Conheça o sistema inteligente onde você escolhe apenas <strong>15 dezenas QUENTES</strong>, e o nosso algoritmo preenche as <strong>10 dezenas FRIAS</strong> automaticamente, gerando cartões com altíssima probabilidade de ganho.</p>
+    </section>
+
+    <section class="garantia-box text-center">
+        <h2>A MATEMÁTICA A SEU FAVOR</h2>
+        
+        <div class="garantia-item">
+            <span>💰</span>
+            <div>
+                <strong>ACERTE 10 QUENTES:</strong> Você já entra na zona de premiação e garante retornos financeiros.
+            </div>
+        </div>
+        
+        <div class="garantia-item">
+            <span>🏆</span>
+            <div>
+                <strong>ACERTE 13 QUENTES:</strong> O sistema aplica o fechamento com garantia matemática de gerar pelo menos <strong>um cartão com 14 PONTOS!</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="prova-social">
+        <h2>Resultados Reais de <span class="text-green">Faturamentos Diários</span></h2>
+        
+        <div class="carousel-container">
+            <button class="carousel-btn prev-btn" onclick="rolarCarrossel(-1)">&#10094;</button>
+            
+            <div class="carousel-track" id="track">
+                <div class="carousel-slide"><img src="https://i.ibb.co/XZNTs7G6/Screenshot-2026-03-09-16-45-50-508-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/5WmtK7B7/Screenshot-2026-03-12-11-44-30-585-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/ymf17gQ1/Screenshot-2026-03-17-11-40-31-104-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/bjq7QmVc/Screenshot-2026-03-18-21-47-25-404-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/twpb6WCS/Screenshot-2026-03-20-14-37-05-826-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/cKRSsXxP/Screenshot-2026-03-24-18-31-08-405-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/bRmFqQs3/Screenshot-2026-03-25-17-25-24-457-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/Q3z6B49H/Screenshot-2026-03-26-12-10-20-528-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/NnYxhwWy/Screenshot-2026-03-31-04-43-17-057-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/ccSn9gR7/Screenshot-2026-03-31-12-13-51-579-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/DhMYb8z/Screenshot-2026-04-01-10-15-09-222-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/G43rmT8x/Screenshot-2026-04-02-15-13-05-266-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/DPfr6472/Screenshot-2026-04-09-10-16-14-187-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/pj8wddL7/Screenshot-2026-04-16-08-11-41-217-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/nsykB11y/Screenshot-2026-04-20-18-38-08-702-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/7xQrTLXf/Screenshot-2026-05-04-10-10-28-986-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/0yd7yM4W/Screenshot-2026-05-15-18-41-48-932-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/GQ3tdDb8/Screenshot-2026-05-21-18-55-01-618-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+                <div class="carousel-slide"><img src="https://i.ibb.co/k63qtTSr/Screenshot-2026-05-22-14-38-12-342-com-mercadopago-wallet.jpg" loading="lazy" alt="Saque Mercado Pago"></div>
+            </div>
+            
+            <button class="carousel-btn next-btn" onclick="rolarCarrossel(1)">&#10095;</button>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <a href="https://guinhodobicho.github.io/Lotofacil-Quentes-e-Frias" target="_blank" class="btn btn-teste">
+            Para testar o sistema clique aqui
+        </a>
+        
+        <a href="https://mpago.la/1PpSU86" target="_blank" class="btn btn-comprar">
+            COMPRE A VERSÃO COMPLETA AQUI
+        </a>
+    </section>
+
+    <footer>
+        <p>Aviso Legal: Nenhuma matriz ou fechamento matemático altera as probabilidades reais impostas pela Caixa Econômica Federal. As garantias citadas referem-se estritamente à condição combinatória do fechamento e dependem do acerto prévio das dezenas exigidas. Jogue com responsabilidade. Proibido para menores de 18 anos.</p>
+        <p>&copy; 2026 Lotofácil Premium. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const track = document.getElementById('track');
+        
+        function rolarCarrossel(direction) {
+            // Calcula a largura de um slide + gap
+            const slideWidth = track.querySelector('.carousel-slide').clientWidth + 15;
+            track.scrollBy({
+                left: slideWidth * direction,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+</body>
+</html>
