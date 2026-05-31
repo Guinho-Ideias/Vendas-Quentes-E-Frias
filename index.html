@@ -16,6 +16,10 @@
             background-color: #0d0d0d;
             color: #ffffff;
             line-height: 1.6;
+            /* Evitar seleção de texto */
+            user-select: none; 
+            -webkit-user-select: none;
+            -moz-user-select: none;
         }
         img {
             max-width: 100%;
@@ -100,7 +104,6 @@
             scroll-behavior: smooth;
             gap: 15px;
             padding-bottom: 20px;
-            /* Esconde a barra de rolagem */
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
@@ -149,13 +152,53 @@
         .next-btn { right: -20px; }
         .carousel-btn:hover { background: #ffcc00; color: #000; }
 
+        /* Área de Preço e Oferta */
+        .price-container {
+            background-color: #161616;
+            border: 1px solid #262626;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        }
+        .price-tag-promo {
+            background-color: #ff3333;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .price-old {
+            font-size: 1.1rem;
+            color: #777777;
+            text-decoration: line-through;
+        }
+        .price-new {
+            font-size: 2.8rem;
+            color: #00ff66;
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 5px 0;
+        }
+        .price-info {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+        }
+
         /* Botões de Ação (CTA) */
         .cta-section {
             padding: 40px 20px 80px 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
         }
         
@@ -268,6 +311,14 @@
     </section>
 
     <section class="cta-section">
+        
+        <div class="price-container">
+            <span class="price-tag-promo">Promoção Lote de Lançamento</span>
+            <div class="price-old">De R$ 199,00 por apenas</div>
+            <div class="price-new">R$ 80,00</div>
+            <div class="price-info">Acesso vitalício ao sistema com atualizações inclusas</div>
+        </div>
+
         <a href="https://guinhodobicho.github.io/Lotofacil-Quentes-e-Frias" target="_blank" class="btn btn-teste">
             Para testar o sistema clique aqui
         </a>
@@ -286,13 +337,20 @@
         const track = document.getElementById('track');
         
         function rolarCarrossel(direction) {
-            // Calcula a largura de um slide + gap
             const slideWidth = track.querySelector('.carousel-slide').clientWidth + 15;
             track.scrollBy({
                 left: slideWidth * direction,
                 behavior: 'smooth'
             });
         }
+        
+        // Bloqueio de clique direito e atalhos para proteger a página de vendas também
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.key === 'F12' || e.keyCode === 123) return false;
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) return false;
+            if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) return false;
+        };
     </script>
 
 </body>
